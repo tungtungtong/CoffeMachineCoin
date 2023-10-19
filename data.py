@@ -21,11 +21,25 @@ MENU = {
             "coffee": 24,
         },
         "cost": 950,
-    }
+    },
 }
 
 resources = {
     "water": 3000,
     "milk": 2000,
     "coffee": 1500,
+}
+
+payout_coin = {
+    "coins500": 15,
+    "coins100": 15,
+    "coins50": 15,
+    "coins10": 15,
+}
+
+insertCoin = {
+    "coins500": 0,
+    "coins100": 0,
+    "coins50": 0,
+    "coins10": 0,
 }
