@@ -24,6 +24,14 @@ MENU = {
     },
 }
 
+print(MENU["latte"])
+
+MENU_LIST = {
+    "0": {"espresso"},
+    "1": {"latte"},
+    "2": {"cappuccino"},
+}
+
 resources = {
     "water": 3000,
     "milk": 2000,

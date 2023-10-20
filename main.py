@@ -2,30 +2,37 @@ import data
 import logo
 
 menu = data.MENU
+menu_list = data.MENU_LIST
 resource = data.resources
 payout_coin = data.payout_coin
 insert_coin = data.insertCoin
 profit = 0
+coffe_name = ""
 
 
 # check machine have enough coin to payback
 def paycheck():
-    is_payout = False
+    is_payout = True
 
     return is_payout
 
 
 # check machine have enough resource to make a coffe
-def resource_check():
-    is_resource = False
+def resource_check(coffe_number):
+    global coffe_name
+    is_resource = True
+    for key in menu_list:
+        if key == coffe_number:
+            coffe_name = menu_list[key]
 
     return is_resource
 
 
 # Make coffe after check resource
 def coffe_make():
-    is_make_coffe = False
+    is_make_coffe = True
 
+    print(logo.done)
     return is_make_coffe
 
 
@@ -43,11 +50,25 @@ def menu_print():
     return menu_number
 
 
+def coffe_menu():
+    print(logo.logo)
+    print("______________________________________________")
+    print("|    Select your action                      |")
+    print("|    1. Espresso                             |")
+    print("|    2. Latte                                |")
+    print("|    3. Cappuccino                           |")
+    print("|    0. Return                               |")
+    print("|____________________________________________|")
+    coffe_number = input("Your selection: ")
+    return coffe_number
+
+
 # Menu selection
 def select_menu(menu_no):
     match menu_no:
         case "1":
-            if resource_check():
+            coffe_number = coffe_menu()
+            if resource_check(coffe_number):
                 if paycheck():
                     coffe_make()
                 else:
