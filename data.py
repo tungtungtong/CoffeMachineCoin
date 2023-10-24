@@ -2,6 +2,7 @@ MENU = {
     "espresso": {
         "ingredients": {
             "water": 50,
+            "milk": 0,
             "coffee": 18,
         },
         "cost": 800,
@@ -24,12 +25,10 @@ MENU = {
     },
 }
 
-print(MENU["latte"])
-
 MENU_LIST = {
-    "0": {"espresso"},
-    "1": {"latte"},
-    "2": {"cappuccino"},
+    1: "espresso",
+    2: "latte",
+    3: "cappuccino",
 }
 
 resources = {
