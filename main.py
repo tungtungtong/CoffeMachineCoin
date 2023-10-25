@@ -113,13 +113,14 @@ def coin_calculator(coin500, coin100, coin50, coin10):
 
 
 def cash_back():
-    global payout500Coins, payout100Coins, payout50Coins, payout10Coins, insert_coin
+    global payout500Coins, payout100Coins, payout50Coins, payout10Coins, insert_coin, profit
     cash_back_500coins = 0
     cash_back_100coins = 0
     cash_back_50coins = 0
     cash_back_10coins = 0
 
     payout_cash = insert_coin - menu[coffee_name]["cost"]
+    profit += menu[coffee_name]["cost"]
 
     # Payout Coins Calculator
     payout500Coins += insert_coin500
@@ -172,10 +173,25 @@ def coffe_menu():
     return coffee_number
 
 
+# Resource Report
 def resource_report():
+    print("\n")
     print(f"Water: {resource_water}")
     print(f"Milk: {resource_milk}")
     print(f"Coffee: {resource_coffee}")
+    print("\n")
+
+
+# Payout Coins Report
+def coins_report():
+    time.sleep(1)
+    print("\n")
+    print(f"Coffee Machine 500 coins: {payout500Coins}")
+    print(f"Coffee Machine 100 coins: {payout100Coins}")
+    print(f"Coffee Machine 50 coins: {payout50Coins}")
+    print(f"Coffee Machine 10 coins: {payout10Coins}")
+    time.sleep(2)
+    print("\n")
 
 
 # Menu selection
@@ -194,21 +210,32 @@ def select_menu(menu_no):
                     print("Not enough coins to payout")
             else:
                 print("Not enough resource")
+
+            return_menu()
             break
         elif menu_no == 2:
+            time.sleep(1)
             resource_report()
+            time.sleep(2)
+            break
         elif menu_no == 3:
-            for key in payout_coin:
-                print(f"{key}: {payout_coin[key]}")
+            coins_report()
+            break
         elif menu_no == 4:
             print(f"Profit: {profit}")
+            break
     if menu_no == 0:
         print(logo.thankyou)
 
 
+def return_menu():
+    global user_selection
+    while user_selection > 0:
+        # Menu
+        user_selection = menu_print()
+        select_menu(user_selection)
+
+
 """Start program"""
 # Coffe Machine Run
-while user_selection > 0:
-    # Menu
-    user_selection = menu_print()
-    select_menu(user_selection)
+return_menu()
