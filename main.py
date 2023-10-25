@@ -2,39 +2,46 @@ import time
 import data
 import logo
 
-# MENU
+# Menu data
 menu = data.MENU
-# COFFEE NAME
 menu_list = data.MENU_LIST
+
 # RESOURCE
 resource = data.resources
-# Payout Coins
-payout_coin = data.payout_coin
-# Insert Coins
-insert_coin = 0
-# Profit
-profit = 0
-# Coffee name
-coffee_name = ""
-# User selection
-user_selection = 1
-# Cost
-cost = 0
-# Payback
-payback = 0
+resource_water = resource["water"]
+resource_milk = resource["milk"]
+resource_coffee = resource["coffee"]
+
 # Coffee material
 ingredients_water = 0
 ingredients_milk = 0
 ingredients_coffee = 0
-# Resource
-resource_water = resource["water"]
-resource_milk = resource["milk"]
-resource_coffee = resource["coffee"]
-# Payout Coin
+
+# Payout Coins
+payout_coin = data.payout_coin
 payout500Coins = payout_coin["coins500"]
 payout100Coins = payout_coin["coins100"]
 payout50Coins = payout_coin["coins50"]
 payout10Coins = payout_coin["coins10"]
+
+# Insert Coins
+insert_coin = 0
+
+# Profit
+profit = 0
+
+# Coffee name
+coffee_name = ""
+
+# User selection
+user_selection = 1
+
+# Cost
+cost = 0
+
+# Payback
+payback = 0
+
 # Insert Coins
 insert_coin500 = 0
 insert_coin100 = 0
@@ -51,7 +58,7 @@ def paycheck():
     insert_coin50 = int(input("Number of 50coins: "))
     insert_coin10 = int(input("Number of 10coins: "))
 
-    insert_coin = insert_coin500 * 500 + insert_coin100 * 100 + insert_coin50 * 50 + insert_coin10 * 10
+    insert_coin = coin_calculator(insert_coin500, insert_coin100, insert_coin50, insert_coin10)
     cost = menu[coffee_name]["cost"]
 
     time.sleep(1)
@@ -109,7 +116,7 @@ def menu_print():
 
 def coin_calculator(coin500, coin100, coin50, coin10):
     total = coin500 * 500 + coin100 * 100 + coin50 * 50 + coin10 * 10
-    return  total
+    return total
 
 
 def cash_back():
@@ -201,7 +208,6 @@ def select_menu(menu_no):
             coffee_number = coffe_menu()
             if coffee_number == 0:
                 break
-            
             if resource_check(coffee_number):
                 if paycheck():
                     coffee_make()
@@ -210,7 +216,6 @@ def select_menu(menu_no):
                     print("Not enough coins to payout")
             else:
                 print("Not enough resource")
-
             return_menu()
             break
         elif menu_no == 2:
