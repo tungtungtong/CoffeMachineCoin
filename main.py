@@ -1,3 +1,4 @@
+import time
 import data
 import logo
 
@@ -10,35 +11,57 @@ resource = data.resources
 # Payout Coins
 payout_coin = data.payout_coin
 # Insert Coins
-insert_coin = data.insertCoin
+insert_coin = 0
 # Profit
 profit = 0
 # Coffee name
 coffee_name = ""
-#
+# User selection
 user_selection = 1
-
+# Cost
+cost = 0
+# Payback
+payback = 0
+# Coffee material
 ingredients_water = 0
 ingredients_milk = 0
 ingredients_coffee = 0
+# Resource
+resource_water = resource["water"]
+resource_milk = resource["milk"]
+resource_coffee = resource["coffee"]
+# Payout Coin
+payout500Coins = payout_coin["coins500"]
+payout100Coins = payout_coin["coins100"]
+payout50Coins = payout_coin["coins50"]
+payout10Coins = payout_coin["coins10"]
+# Insert Coins
+insert_coin500 = 0
+insert_coin100 = 0
+insert_coin50 = 0
+insert_coin10 = 0
 
-for key in resource:
-    resource_water = resource[key]
-    resource_milk = resource[key]
-    resource_coffee = resource[key]
 
-
-# check machine have enough coin to payback
+# Check machine have enough coin to payback
 def paycheck():
+    global insert_coin, insert_coin500, insert_coin100, insert_coin50, insert_coin10, cost
+
     insert_coin500 = int(input("Number of 500coins: "))
     insert_coin100 = int(input("Number of 100coins: "))
     insert_coin50 = int(input("Number of 50coins: "))
     insert_coin10 = int(input("Number of 10coins: "))
 
-    total = insert_coin500 * 500 + insert_coin100 * 100 + insert_coin50 * 50 + insert_coin10 * 10
+    insert_coin = insert_coin500 * 500 + insert_coin100 * 100 + insert_coin50 * 50 + insert_coin10 * 10
     cost = menu[coffee_name]["cost"]
 
-    if total >= cost:
+    time.sleep(1)
+    print("\n")
+    print(f"Total insert: {insert_coin}")
+    print(f"Coffee price: {cost}")
+
+    time.sleep(1)
+
+    if insert_coin >= cost:
         return True
     else:
         return False
@@ -46,10 +69,7 @@ def paycheck():
 
 # check machine have enough resource to make a coffe
 def resource_check(coffee_number):
-    global coffee_name
-    global ingredients_water
-    global ingredients_milk
-    global ingredients_coffee
+    global coffee_name, ingredients_water, ingredients_milk, ingredients_coffee
 
     coffee_name = menu_list[coffee_number]
     ingredients_coffee = menu[coffee_name]["ingredients"]["coffee"]
@@ -66,9 +86,7 @@ def resource_check(coffee_number):
 
 # Make coffe after check resource
 def coffee_make():
-    global resource_coffee
-    global resource_milk
-    global resource_water
+    global resource_coffee, resource_milk, resource_water
 
     resource_milk = resource_milk - ingredients_milk
     resource_coffee = resource_coffee - ingredients_coffee
@@ -86,16 +104,59 @@ def menu_print():
     print("|    0. Done                                 |")
     print("|____________________________________________|")
     menu_number = int(input("Your selection: "))
-    if menu_number > 0:
-        return menu_number
-    else:
-        print("Done")
-        return 0
+    return menu_number
+
+
+def coin_calculator(coin500, coin100, coin50, coin10):
+    total = coin500 * 500 + coin100 * 100 + coin50 * 50 + coin10 * 10
+    return  total
 
 
 def cash_back():
-    is_cash_back = True
-    return is_cash_back
+    global payout500Coins, payout100Coins, payout50Coins, payout10Coins, insert_coin
+    cash_back_500coins = 0
+    cash_back_100coins = 0
+    cash_back_50coins = 0
+    cash_back_10coins = 0
+
+    payout_cash = insert_coin - menu[coffee_name]["cost"]
+
+    # Payout Coins Calculator
+    payout500Coins += insert_coin500
+    payout100Coins += insert_coin100
+    payout50Coins += insert_coin50
+    payout10Coins += insert_coin10
+
+    # Print CashBack
+    time.sleep(1)
+    print(f"Your change: {payout_cash}")
+    print("\n")
+    time.sleep(1)
+
+    # CashBack Coins Calculator
+    while payout_cash > 0:
+        if payout_cash >= 500 and payout500Coins > 0:
+            payout_cash -= 500
+            payout500Coins -= 1
+            cash_back_500coins += 1
+        elif payout_cash >= 100 and payout100Coins > 0:
+            payout_cash -= 100
+            payout100Coins -= 1
+            cash_back_100coins += 1
+        elif payout_cash >= 50 and payout100Coins > 0:
+            payout_cash -= 50
+            payout50Coins -= 1
+            cash_back_50coins += 1
+        else:
+            payout_cash -= 10
+            payout10Coins -= 1
+            cash_back_10coins += 1
+
+    time.sleep(1)
+    print(f"Cashback 500Coins: {cash_back_500coins}")
+    print(f"Cashback 100Coins: {cash_back_100coins}")
+    print(f"Cashback 50Coins: {cash_back_50coins}")
+    print(f"Cashback 10Coins: {cash_back_10coins}")
 
 
 def coffe_menu():
@@ -133,6 +194,7 @@ def select_menu(menu_no):
                     print("Not enough coins to payout")
             else:
                 print("Not enough resource")
+            break
         elif menu_no == 2:
             resource_report()
         elif menu_no == 3:
@@ -141,7 +203,7 @@ def select_menu(menu_no):
         elif menu_no == 4:
             print(f"Profit: {profit}")
     if menu_no == 0:
-        print("Done")
+        print(logo.thankyou)
 
 
 """Start program"""
