@@ -165,6 +165,7 @@ def cash_back():
     print(f"Cashback 100Coins: {cash_back_100coins}")
     print(f"Cashback 50Coins: {cash_back_50coins}")
     print(f"Cashback 10Coins: {cash_back_10coins}")
+    time.sleep(2)
 
 
 def coffe_menu():
@@ -224,13 +225,19 @@ def select_menu(menu_no):
             time.sleep(2)
             break
         elif menu_no == 3:
+            time.sleep(1)
             coins_report()
+            time.sleep(2)
             break
         elif menu_no == 4:
+            time.sleep(1)
             print(f"Profit: {profit}")
+            time.sleep(2)
             break
     if menu_no == 0:
+        time.sleep(1)
         print(logo.thankyou)
+        time.sleep(2)
 
 
 def return_menu():
